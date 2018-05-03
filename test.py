@@ -48,4 +48,4 @@ for prediction in predictions:
     all_testing.append(prediction["text"])
 
 answers = clf.predict(all_testing)
-# print(answers)
+print(answers)
