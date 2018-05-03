@@ -15,6 +15,10 @@ python test.py
 ```
 This will link to the pre-made cases.csv and predictions.csv. Cases refers to complaints filed in the Alachua Clerk of Court involving the University of Florida. Predictions.csv contains two cases that after the script runs a model, will try to predict what classification (among those existing in current cases) will be used to predict the category of the complaint, using the text in the csv. Some categories include medical malpractice, public records, debt collection and patents, among others. We have two text files loaded into  predictions.csv that we are using to make predictions from.
 
+When you run the script, it will print the accuracy score and the predictive labels for the lawsuits in the predictions csv.
+
+It may also pop a message saying the software has depreciated. It's something we plan to upgrade in the future.
+
 ## How We Did It
 The pdfs from the Clerk of Court were not already processed using OCR, so we used CometDocs to parse them and output text files. CometDocs is free for IRE members and you can sign up [here](https://www.ire.org/blog/ire-news/2013/05/22/ire-announces-partnership-cometdocs/).
 
