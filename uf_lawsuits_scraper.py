@@ -12,6 +12,7 @@ import csv
 import pytesseract
 import sys
 import argparse
+import os
 
 def getResults():
     global driver
@@ -50,13 +51,14 @@ def getDetails(pageVals):
         time.sleep(4)
         documents = driver.find_elements_by_xpath("/html/body/div/div/table/tbody/tr/td[@align='center']/a")
         for document in documents:
-            download_dir = "/" # for linux/*nix, download_dir="/usr/Public"
-            options = webdriver.FirefoxOptions()
-            profile = {"plugins.plugins_list": [{"enabled": False, "name": "Firefox PDF Viewer"}], # Disable Chrome's PDF Viewer
-               "download.default_directory": download_dir , "download.extensions_to_open": "applications/pdf"}
-            options.add_experimental_option("prefs", profile)
-              # Optional argument, if not specified will search path.
-            document.get('pdf_url')
+            time.sleep(2)
+            document.click()
+            time.sleep(2)
+
+            # html = driver.find_element_by_xpath("//*[@id='download']")
+            # if html:
+            #     print("HTML!")
+
 
 
 
@@ -71,8 +73,17 @@ def getDetails(pageVals):
 #         time.sleep(4)
 #         print ("Did I work? Who the fuck knows.")
 
-driver = webdriver.Firefox()
+profile = webdriver.FirefoxProfile()
+profile.set_preference("browser.download.folderList", 2)
+profile.set_preference("browser.download.manager.showWhenStarting", False)
+profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/pdf")
+profile.set_preference("plugin.disable_full_page_plugin_for_types", "application/pdf")
+profile.set_preference("pdfjs.disabled", True)
+driver = webdriver.Firefox(profile)
 driver.get("https://www.alachuaclerk.org/court_records/gis/index.cfm")
+# profile = {"plugins.plugins_list": [{"enabled": False, "name": "Chrome PDF Viewer"}], # Disable Chrome's PDF Viewer
+#                "download.default_directory": download_dir , "download.extensions_to_open": "applications/pdf"}
+
 time.sleep(10)
 #your lists where info will be stored
 pageVals = []
